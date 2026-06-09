@@ -129,9 +129,9 @@ class ModelTrainer:
                     verbosity=0,
                 ),
                 "param_grid": {
-                    "n_estimators": [100, 200],
+                    "n_estimators": [100],
                     "max_depth": [3, 5],
-                    "learning_rate": [0.1, 0.01],
+                    "learning_rate": [0.1],
                 },
             }
         else:

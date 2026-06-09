@@ -435,7 +435,11 @@ if st.button("🔬 Analyze Contributions", type="primary", use_container_width=T
             try:
                 # Get prediction
                 from src.predict import NewsPredictor
-                predictor = NewsPredictor(model_dir=os.path.join(BASE_DIR, "models"))
+                models_dir = os.path.join(BASE_DIR, "models")
+                predictor = NewsPredictor(
+                    model_path=os.path.join(models_dir, "best_model.joblib"),
+                    vectorizer_path=os.path.join(models_dir, "tfidf_vectorizer.joblib"),
+                )
                 pred_result = predictor.predict(explain_text)
 
                 prediction = pred_result.get("prediction", "Unknown")

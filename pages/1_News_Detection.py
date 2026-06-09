@@ -124,36 +124,67 @@ def load_predictor():
     try:
         from src.predict import NewsPredictor
         model_dir = os.path.join(BASE_DIR, "models")
-        predictor = NewsPredictor(model_dir=model_dir)
+        model_path = os.path.join(model_dir, "best_model.joblib")
+        vectorizer_path = os.path.join(model_dir, "tfidf_vectorizer.joblib")
+        predictor = NewsPredictor(model_path=model_path, vectorizer_path=vectorizer_path)
         return predictor, None
     except Exception as e:
         return None, str(e)
 
 
+import random
+
 # ─── Sample Articles ────────────────────────────────────────────────────────
 SAMPLE_ARTICLES = {
-    "🟢 Real News Example": (
-        "The Federal Reserve announced on Wednesday that it would raise interest rates "
+    "🟢 Real News Example": [
+        "WASHINGTON (Reuters) - The Federal Reserve announced on Wednesday that it would raise interest rates "
         "by 0.25 percentage points, citing persistent inflation concerns. Fed Chair Jerome "
         "Powell stated during the press conference that the central bank remains committed "
         "to achieving its 2% inflation target. Markets reacted with modest gains as "
-        "investors had largely anticipated the move. The decision was unanimous among all "
-        "voting members of the Federal Open Market Committee."
-    ),
-    "🔴 Fake News Example": (
+        "investors had largely anticipated the move.",
+        
+        "LONDON (Reuters) - Global markets rallied on Friday following a strong jobs report "
+        "from the United States. European indices closed up by more than 1.5%, led by "
+        "technology and healthcare sectors. Analysts say the positive sentiment could "
+        "continue into next week depending on upcoming corporate earnings calls.",
+        
+        "NEW YORK (Reuters) - The city council voted unanimously to approve the new "
+        "infrastructure spending package. The $4 billion initiative will focus on repairing "
+        "aging bridges, upgrading the public transit system, and expanding broadband access "
+        "in underserved communities. Construction is slated to begin early next year."
+    ],
+    "🔴 Fake News Example": [
         "BREAKING: Scientists at a secret underground lab have discovered that drinking "
         "bleach can cure all known diseases! The government has been hiding this miracle "
         "cure for decades to protect Big Pharma profits. Share this before they delete it! "
-        "Thousands of doctors have been silenced for trying to reveal the truth. Wake up "
-        "sheeple! The mainstream media won't tell you this!"
-    ),
-    "🟡 Ambiguous Example": (
+        "Thousands of doctors have been silenced for trying to reveal the truth. Wake up!",
+        
+        "SHOCKING: The President was caught on hot mic admitting that the earth is actually "
+        "flat! Insiders say that NASA has been faking satellite images for years to keep "
+        "the public completely blind. Read the leaked documents here before the deep state "
+        "takes this page offline. You won't believe what else they're hiding!",
+        
+        "EXCLUSIVE: Top politicians are secretly using taxpayer money to build luxury "
+        "bunkers on Mars! A whistleblower who recently escaped from a top-secret facility "
+        "provided us with blurry photos of the spaceships. The mainstream media is completely "
+        "ignoring this massive story because they are in on the conspiracy."
+    ],
+    "🟡 Ambiguous Example": [
         "A new study published online claims that a popular vitamin supplement may have "
         "unexpected health benefits that doctors don't want you to know about. The research, "
         "which has not been peer-reviewed, suggests that taking high doses could reverse "
-        "aging. Several wellness influencers have already started promoting the findings "
-        "on social media platforms."
-    ),
+        "aging. Several wellness influencers have already started promoting the findings.",
+        
+        "WASHINGTON (Reuters) - Unconfirmed reports circulated late Tuesday regarding a "
+        "potential major shakeup in the cabinet. Anonymous sources suggested that two senior "
+        "officials might resign by the end of the week due to internal disagreements over "
+        "policy direction. The White House has declined to comment on the rumors.",
+        
+        "Local officials are investigating reports of strange lights in the sky over the city. "
+        "Some residents claim they saw a massive triangular object hovering silently above the "
+        "power plant for several minutes before it disappeared. The military base nearby stated "
+        "they had no aircraft in the area at the time."
+    ],
 }
 
 
@@ -222,21 +253,17 @@ if predictor is None:
 st.markdown('<div class="section-header">📋 Quick Test with Sample Articles</div>', unsafe_allow_html=True)
 
 sample_cols = st.columns(3)
-selected_sample = None
 
-for i, (label, text) in enumerate(SAMPLE_ARTICLES.items()):
+for i, (label, texts) in enumerate(SAMPLE_ARTICLES.items()):
     with sample_cols[i]:
         if st.button(label, key=f"sample_{i}", use_container_width=True):
-            selected_sample = text
+            st.session_state.news_input = random.choice(texts)
 
 # ─── Input Area ──────────────────────────────────────────────────────────────
 st.markdown('<div class="section-header">✍️ Enter News Article</div>', unsafe_allow_html=True)
 
-default_text = selected_sample if selected_sample else ""
-
 news_text = st.text_area(
     "Paste your news article here:",
-    value=default_text,
     height=200,
     placeholder="Enter or paste a news article to analyze...",
     key="news_input",

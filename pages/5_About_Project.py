@@ -178,36 +178,62 @@ st.markdown("""
 st.markdown('<div class="section-header">📐 System Architecture</div>', unsafe_allow_html=True)
 
 st.markdown("""
-```mermaid
-graph LR
-    A["📰 Raw Text"] --> B["🧹 Preprocessing"]
-    B --> C["🔢 TF-IDF Vectorization"]
-    C --> D["🤖 Model Training"]
-    D --> E["📊 Evaluation"]
-    D --> F["💾 Saved Model"]
-    F --> G["🔍 Prediction API"]
-    G --> H["📱 Streamlit Dashboard"]
-    E --> I["📈 Reports"]
-    I --> H
+<div style="background: linear-gradient(135deg, #1e2a3a, #16213e); border: 1px solid rgba(0, 212, 255, 0.15); border-radius: 16px; padding: 30px; margin-top: 12px; text-align: center;">
 
-    style A fill:#1e2a3a,stroke:#00d4ff,color:#e0e0e0
-    style B fill:#1e2a3a,stroke:#00ff88,color:#e0e0e0
-    style C fill:#1e2a3a,stroke:#00d4ff,color:#e0e0e0
-    style D fill:#1e2a3a,stroke:#ff4757,color:#e0e0e0
-    style E fill:#1e2a3a,stroke:#ffa500,color:#e0e0e0
-    style F fill:#1e2a3a,stroke:#a855f7,color:#e0e0e0
-    style G fill:#1e2a3a,stroke:#00ff88,color:#e0e0e0
-    style H fill:#1e2a3a,stroke:#00d4ff,color:#e0e0e0
-    style I fill:#1e2a3a,stroke:#ffa500,color:#e0e0e0
-```
-""")
+<div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
 
-st.markdown("""
-<div style="background: linear-gradient(135deg, #1e2a3a, #16213e);
-    border: 1px solid rgba(0, 212, 255, 0.15); border-radius: 16px;
-    padding: 20px; margin-top: 12px; font-family: 'Courier New', monospace;
-    font-size: 0.82rem; color: #8899aa; line-height: 1.6;">
-<pre style="margin: 0; color: #8899aa;">
+<!-- Step 1 & 2 -->
+<div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+<div style="background: rgba(0, 212, 255, 0.1); border: 1px solid #00d4ff; padding: 15px 30px; border-radius: 8px; color: #e0e0e0; font-weight: 600;">
+📰 Raw Text
+</div>
+<div style="color: #8899aa; font-size: 1.5rem; align-self: center;">➔</div>
+<div style="background: rgba(0, 255, 136, 0.1); border: 1px solid #00ff88; padding: 15px 30px; border-radius: 8px; color: #e0e0e0; font-weight: 600;">
+🧹 Preprocessing
+</div>
+<div style="color: #8899aa; font-size: 1.5rem; align-self: center;">➔</div>
+<div style="background: rgba(0, 212, 255, 0.1); border: 1px solid #00d4ff; padding: 15px 30px; border-radius: 8px; color: #e0e0e0; font-weight: 600;">
+🔢 TF-IDF Vectorization
+</div>
+</div>
+
+<div style="color: #8899aa; font-size: 1.5rem;">⬇</div>
+
+<!-- Step 3 -->
+<div style="background: rgba(255, 71, 87, 0.1); border: 1px solid #ff4757; padding: 15px 60px; border-radius: 8px; color: #e0e0e0; font-weight: 600;">
+🤖 Model Training & Hyperparameter Tuning
+</div>
+
+<div style="display: flex; gap: 60px; justify-content: center; margin-top: 10px;">
+<div style="color: #8899aa; font-size: 1.5rem;">↙</div>
+<div style="color: #8899aa; font-size: 1.5rem;">↘</div>
+</div>
+
+<!-- Step 4 -->
+<div style="display: flex; gap: 40px; justify-content: center; flex-wrap: wrap;">
+<div style="background: rgba(255, 165, 0, 0.1); border: 1px solid #ffa500; padding: 15px 30px; border-radius: 8px; color: #e0e0e0; font-weight: 600;">
+📊 Evaluation & Reports
+</div>
+<div style="background: rgba(168, 85, 247, 0.1); border: 1px solid #a855f7; padding: 15px 30px; border-radius: 8px; color: #e0e0e0; font-weight: 600;">
+💾 Saved Model (Joblib)
+</div>
+</div>
+
+<div style="display: flex; gap: 60px; justify-content: center; margin-top: 10px;">
+<div style="color: #8899aa; font-size: 1.5rem;">↘</div>
+<div style="color: #8899aa; font-size: 1.5rem;">↙</div>
+</div>
+
+<!-- Step 5 -->
+<div style="background: rgba(0, 212, 255, 0.1); border: 2px solid #00d4ff; padding: 20px 80px; border-radius: 12px; color: #e0e0e0; font-size: 1.2rem; font-weight: 800; box-shadow: 0 4px 20px rgba(0, 212, 255, 0.2);">
+📱 Streamlit Dashboard & Prediction API
+</div>
+
+</div>
+</div>
+""", unsafe_allow_html=True)
+
+st.code("""
 Fake_News_Detection/
 ├── app.py                     # 🏠 Main dashboard (Home page)
 ├── pages/
@@ -226,9 +252,7 @@ Fake_News_Detection/
 ├── dataset/                   # Training data (Fake.csv, True.csv)
 ├── reports/                   # Generated charts & metrics
 └── .streamlit/config.toml     # Theme configuration
-</pre>
-</div>
-""", unsafe_allow_html=True)
+""", language="text")
 
 
 # ─── Tech Stack ──────────────────────────────────────────────────────────────
@@ -469,23 +493,20 @@ st.markdown("""
 <div class="info-card" style="text-align: center;">
     <div style="font-size: 3rem; margin-bottom: 12px;">👨‍💻</div>
     <div style="font-size: 1.3rem; font-weight: 700; color: #e0e0e0; margin-bottom: 4px;">
-        Your Name Here
+        Hitesh Chugh
     </div>
     <div style="color: #8899aa; font-size: 0.9rem; margin-bottom: 20px;">
         Machine Learning Engineer · NLP Enthusiast
     </div>
     <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-        <a href="https://github.com" target="_blank" style="text-decoration: none;">
+        <a href="https://github.com/HiteshChugh-2006/" target="_blank" style="text-decoration: none;">
             <span class="tech-badge">🐙 GitHub</span>
         </a>
-        <a href="https://linkedin.com" target="_blank" style="text-decoration: none;">
+        <a href="https://www.linkedin.com/in/hitesh-chugh-a80170320/" target="_blank" style="text-decoration: none;">
             <span class="tech-badge tech-badge-green">💼 LinkedIn</span>
         </a>
-        <a href="mailto:your.email@example.com" style="text-decoration: none;">
+        <a href="mailto:hiteshchugh101@gmail.com" style="text-decoration: none;">
             <span class="tech-badge tech-badge-orange">📧 Email</span>
-        </a>
-        <a href="#" style="text-decoration: none;">
-            <span class="tech-badge tech-badge-purple">🌐 Portfolio</span>
         </a>
     </div>
 </div>
@@ -497,33 +518,25 @@ st.markdown('<div class="section-header">⚡ Quick Start Guide</div>', unsafe_al
 
 st.markdown("""
 <div class="info-card">
-    <div style="color: #00d4ff; font-size: 1.1rem; font-weight: 700; margin-bottom: 16px;">
-        🚀 Getting Started
-    </div>
-    <div style="color: #8899aa; font-size: 0.9rem; line-height: 2;">
-        <code style="background: rgba(0,212,255,0.1); padding: 4px 10px; border-radius: 6px;
-            color: #00d4ff; font-size: 0.85rem;">1.</code>
-        &nbsp; Install dependencies: 
-        <code style="color: #00ff88;">pip install -r requirements.txt</code><br>
+<div style="color: #00d4ff; font-size: 1.1rem; font-weight: 700; margin-bottom: 16px;">
+🚀 Getting Started
+</div>
+<div style="color: #8899aa; font-size: 0.9rem; line-height: 2;">
+<code style="background: rgba(0,212,255,0.1); padding: 4px 10px; border-radius: 6px; color: #00d4ff; font-size: 0.85rem;">1.</code>
+&nbsp; Install dependencies: <code style="color: #00ff88;">pip install -r requirements.txt</code><br>
         
-        <code style="background: rgba(0,212,255,0.1); padding: 4px 10px; border-radius: 6px;
-            color: #00d4ff; font-size: 0.85rem;">2.</code>
-        &nbsp; Place dataset files in <code style="color: #00ff88;">dataset/</code> directory<br>
+<code style="background: rgba(0,212,255,0.1); padding: 4px 10px; border-radius: 6px; color: #00d4ff; font-size: 0.85rem;">2.</code>
+&nbsp; Place dataset files in <code style="color: #00ff88;">dataset/</code> directory<br>
         
-        <code style="background: rgba(0,212,255,0.1); padding: 4px 10px; border-radius: 6px;
-            color: #00d4ff; font-size: 0.85rem;">3.</code>
-        &nbsp; Train models: 
-        <code style="color: #00ff88;">python main.py</code><br>
+<code style="background: rgba(0,212,255,0.1); padding: 4px 10px; border-radius: 6px; color: #00d4ff; font-size: 0.85rem;">3.</code>
+&nbsp; Train models: <code style="color: #00ff88;">python main.py</code><br>
         
-        <code style="background: rgba(0,212,255,0.1); padding: 4px 10px; border-radius: 6px;
-            color: #00d4ff; font-size: 0.85rem;">4.</code>
-        &nbsp; Launch dashboard: 
-        <code style="color: #00ff88;">streamlit run app.py</code><br>
+<code style="background: rgba(0,212,255,0.1); padding: 4px 10px; border-radius: 6px; color: #00d4ff; font-size: 0.85rem;">4.</code>
+&nbsp; Launch dashboard: <code style="color: #00ff88;">streamlit run app.py</code><br>
         
-        <code style="background: rgba(0,212,255,0.1); padding: 4px 10px; border-radius: 6px;
-            color: #00d4ff; font-size: 0.85rem;">5.</code>
-        &nbsp; Navigate to <code style="color: #00ff88;">http://localhost:8501</code> in your browser
-    </div>
+<code style="background: rgba(0,212,255,0.1); padding: 4px 10px; border-radius: 6px; color: #00d4ff; font-size: 0.85rem;">5.</code>
+&nbsp; Navigate to <code style="color: #00ff88;">http://localhost:8501</code> in your browser
+</div>
 </div>
 """, unsafe_allow_html=True)
 
