@@ -25,11 +25,10 @@ env/
 Thumbs.db
 
 # Data files (large)
-dataset/*.csv
+# (Allowed for Streamlit deployment)
 
 # Model files (large)
-models/*.joblib
-models/*.pkl
+# (Allowed for Streamlit deployment)
 
 # Reports (generated)
 reports/*.png
