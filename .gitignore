@@ -31,8 +31,7 @@ Thumbs.db
 # (Allowed for Streamlit deployment)
 
 # Reports (generated)
-reports/*.png
-reports/*.csv
+# (Allowed for Streamlit deployment)
 
 # Jupyter
 .ipynb_checkpoints/
